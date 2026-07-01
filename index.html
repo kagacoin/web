@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAGA Coin | Sustainable Masternodes</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img-logo-pivx.png">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
@@ -209,10 +213,13 @@
 </head>
 <body>
 
+    <!-- Animation -->
     <canvas id="networkCanvas"></canvas>
 
+    <!-- Inhalt -->
     <div class="scroll-container" id="mainContainer">
         
+        <!-- SEKTION 1 -->
         <section class="section">
             <div class="content-box">
                 <img src="img-logo-pivx.png" alt="KAGA Logo" class="hero-logo">
@@ -222,6 +229,7 @@
             </div>
         </section>
 
+        <!-- SEKTION 2 -->
         <section class="section">
             <div class="content-box">
                 <h2>100% Repurchase Guarantee</h2>
@@ -231,12 +239,14 @@
                     <strong>Important:</strong> This guarantee only applies if the complete Masternode is purchased directly through our official Discord community.
                 </p>
 
-                <a href="#" target="_blank" class="btn-silver">Join Discord to Buy</a>
+                <!-- DISCORD BUTTON 1 -->
+                <a href="https://discord.gg/QTUuBuBu7E" target="_blank" class="btn-silver">Join Discord to Buy</a>
                 <br>
                 <button class="btn-silver btn-outline" onclick="slideToNext(2)">View Coin Specs</button>
             </div>
         </section>
 
+        <!-- SEKTION 3 -->
         <section class="section">
             <div class="content-box">
                 <h2>KAGA Specifications</h2>
@@ -264,16 +274,22 @@
             </div>
         </section>
 
+        <!-- SEKTION 4 -->
         <section class="section">
             <div class="content-box">
                 <h2>Unlock VIP Access</h2>
                 <p>Hold 25 Masternodes during the first two years—or 50 thereafter—to gain exclusive access to our lottery system and unlock extra profit potential.</p>
+                
+                <!-- DISCORD BUTTON 2 -->
+                <a href="https://discord.gg/QTUuBuBu7E" target="_blank" class="btn-silver">Join Our Discord</a>
+                
                 <button class="btn-silver btn-outline" onclick="slideToNext(0)">Back to Start</button>
             </div>
         </section>
 
     </div>
 
+    <!-- Scripte laden erst, wenn HTML fertig ist -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
