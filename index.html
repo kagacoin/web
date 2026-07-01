@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAGA Coin | Sustainable Masternodes</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-bg-black: #050505;
+            --color-text-white: #f5f5f5;
+            --color-silver: #c0c0c0;
+            --color-card-bg: rgba(20, 20, 20, 0.6);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--color-bg-black);
+            color: var(--color-text-white);
+            overflow: hidden; 
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Zen Dots', cursive;
+            letter-spacing: 1px;
+        }
+
+        /* Hintergrund Partikel */
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Horizontaler Scroll Container */
+        .scroll-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth;
+            position: relative;
+            z-index: 10;
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Einzelne Sektionen */
+        .section {
+            flex: 0 0 100vw; 
+            height: 100vh;
+            scroll-snap-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            background: rgba(5, 5, 5, 0.2); 
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(90deg, rgba(26, 26, 26, 0.5) 0%, rgba(5, 5, 5, 0.5) 100%);
+            border-left: 1px solid rgba(192, 192, 192, 0.1);
+            border-right: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        /* Die Box mit dem Text */
+        .content-box {
+            max-width: 900px;
+            text-align: center;
+            background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        .content-box h2 {
+            font-size: 3rem;
+            color: var(--color-silver);
+            margin-bottom: 1.5rem;
+            text-shadow: 0px 0px 15px rgba(192, 192, 192, 0.3);
+        }
+
+        .content-box p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #d1d1d1;
+        }
+
+        .highlight-text {
+            color: #ffcc00; 
+            font-size: 1.1rem !important;
+            margin-top: -1rem;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            background: rgba(255, 204, 0, 0.05);
+        }
+
+        .hero-logo {
+            width: 250px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.5));
+            animation: pulse-logo 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-logo {
+            0% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 15px rgba(192,192,192,0.3)); }
+            50% { transform: scale(1.05) translateY(-10px); filter: drop-shadow(0 0 35px rgba(192,192,192,0.6)); }
+            100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 15px rgba(192,192,192,0.3)); }
+        }
+
+        /* Buttons */
+        .btn-silver {
+            background: linear-gradient(90deg, #555, #e0e0e0, #555);
+            background-size: 200% auto;
+            color: var(--color-bg-black);
+            padding: 15px 35px;
+            text-decoration: none;
+            font-family: 'Zen Dots', cursive;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: 0.5s;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            margin: 10px;
+        }
+
+        .btn-silver:hover {
+            background-position: right center; 
+            color: #000;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-silver);
+            color: var(--color-silver);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(192, 192, 192, 0.1);
+            color: #fff;
+        }
+
+        /* Grid für Coin Details */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .spec-grid { grid-template-columns: 1fr; }
+        }
+
+        .spec-card {
+            background: var(--color-card-bg);
+            border: 1px solid rgba(192, 192, 192, 0.2);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-silver);
+            box-shadow: 0 10px 20px rgba(192, 192, 192, 0.1);
+        }
+
+        .spec-card h3 {
+            font-size: 1.5rem;
+            color: var(--color-silver);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-card p {
+            font-size: 1rem;
+            color: #a0a0a0;
+            font-family: 'Zen Dots', cursive;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="networkCanvas"></canvas>
+
+    <div class="scroll-container" id="mainContainer">
+        
+        <section class="section">
+            <div class="content-box">
+                <img src="img-logo-pivx.png" alt="KAGA Logo" class="hero-logo">
+                <h2>Where Crypto Meets the Lottery</h2>
+                <p>We strategically leverage U.S. system lotteries to establish a long-term, stable, and external source of income. This generates continuous revenue entirely independent of traditional crypto market cycles.</p>
+                <button class="btn-silver" onclick="slideToNext(1)">View Repurchase Plan</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="content-box">
+                <h2>100% Repurchase Guarantee</h2>
+                <p>We guarantee the full repayment of your Masternode's original value of 5,000 coins ($500 USD). Monthly distributions from lottery winnings are allocated toward the repurchase until your entire initial investment has been returned.</p>
+                
+                <p class="highlight-text">
+                    <strong>Important:</strong> This guarantee only applies if the complete Masternode is purchased directly through our official Discord community.
+                </p>
+
+                <a href="#" target="_blank" class="btn-silver">Join Discord to Buy</a>
+                <br>
+                <button class="btn-silver btn-outline" onclick="slideToNext(2)">View Coin Specs</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="content-box">
+                <h2>KAGA Specifications</h2>
+                <p>Built on a secure, fast, and highly rewarding architecture.</p>
+                
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <p>Max Supply</p>
+                        <h3>11,000,000</h3>
+                    </div>
+                    <div class="spec-card">
+                        <p>Block Time</p>
+                        <h3>300 Seconds</h3>
+                    </div>
+                    <div class="spec-card">
+                        <p>Masternode</p>
+                        <h3>5,000 KAGA</h3>
+                    </div>
+                    <div class="spec-card">
+                        <p>Reward Split</p>
+                        <h3>60% MN / 40% Stake</h3>
+                    </div>
+                </div>
+                <button class="btn-silver" onclick="slideToNext(3)">Discover VIP Access</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="content-box">
+                <h2>Unlock VIP Access</h2>
+                <p>Hold 25 Masternodes during the first two years—or 50 thereafter—to gain exclusive access to our lottery system and unlock extra profit potential.</p>
+                <button class="btn-silver btn-outline" onclick="slideToNext(0)">Back to Start</button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- SCROLL LOGIK ---
+            const sections = document.querySelectorAll('.section');
+            let currentIndex = 0;
+            let isScrolling = false;
+
+            window.addEventListener('wheel', (e) => {
+                if (isScrolling) return;
+
+                if (e.deltaY > 0) {
+                    if (currentIndex < sections.length - 1) {
+                        currentIndex++;
+                        scrollToCurrentSection();
+                    }
+                } else {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        scrollToCurrentSection();
+                    }
+                }
+            }, { passive: false });
+
+            window.slideToNext = function(index) {
+                currentIndex = index;
+                scrollToCurrentSection();
+            }
+
+            function scrollToCurrentSection() {
+                isScrolling = true;
+                sections[currentIndex].scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest', 
+                    inline: 'start' 
+                });
+                
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 800); 
+            }
+
+            // --- CANVAS ANIMATION ---
+            const canvas = document.getElementById('networkCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+
+            let particlesArray = [];
+            const numberOfParticles = 100;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedX = (Math.random() * 1) - 0.5;
+                    this.speedY = (Math.random() * 1) - 0.5;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                    if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(192, 192, 192, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                particlesArray = [];
+                for (let i = 0; i < numberOfParticles; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function connect() {
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) 
+                                     + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        
+                        if (distance < (canvas.width/8) * (canvas.height/8)) {
+                            let opacityValue = 1 - (distance / 15000);
+                            ctx.strokeStyle = 'rgba(192, 192, 192,' + opacityValue + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                }
+                connect();
+            }
+
+            window.addEventListener('resize', function(){
+                resizeCanvas();
+                init();
+                scrollToCurrentSection(); 
+            });
+
+            init();
+            animate();
+        });
+    </script>
+</body>
+</html>
