@@ -28,7 +28,6 @@ function updateCurrent() {
     if (section.getBoundingClientRect().top <= offset) current = section.id;
   }
   if (['memory', 'vision', 'repurchase'].includes(current)) current = 'home';
-  if (current === 'coin-details' && document.querySelector('#vip-ecosystem').getBoundingClientRect().top <= offset) current = 'vip-ecosystem';
   for (const link of navLinks) {
     if (link.hash === '#' + current) link.setAttribute('aria-current', 'location');
     else link.removeAttribute('aria-current');

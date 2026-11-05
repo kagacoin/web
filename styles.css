@@ -280,3 +280,10 @@ p { font-size:15px; color:#9b9fa2; line-height:1.95; }
   #memory .memory-story .memory-dedication { column-span:all; }
   #memory .memory-story .memory-legacy { margin-top:24px; }
 }
+
+/* Keep the repurchase actions together in one row. */
+#repurchase .repurchase-actions { grid-column:2; display:flex; align-items:stretch; gap:12px; margin-top:8px; }
+#repurchase .repurchase-actions .btn-silver { margin:0; min-width:0; text-align:center; }
+@media (max-width:520px) {
+  #repurchase .repurchase-actions .btn-silver { padding:14px 12px; letter-spacing:0; }
+}
