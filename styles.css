@@ -258,3 +258,25 @@ p { font-size:15px; color:#9b9fa2; line-height:1.95; }
  .page-footer { padding-inline:7%; }
 }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none!important; animation:none!important; } .owl-flight { opacity:.65; transform:translate(72vw,12vh) scale(.65); } }
+
+/* A single, continuous memorial with a comfortable reading measure. */
+#memory .content-box { display:block; max-width:1160px; padding:0; border:0; }
+#memory h2 { font-size:clamp(42px,6vw,78px); line-height:1.12; margin-bottom:24px; }
+#memory .memory-subtitle { color:#e0e4e6; font:500 clamp(19px,2.4vw,26px)/1.5 Manrope,sans-serif; margin:0 0 40px; }
+#memory .memory-story p { font-size:clamp(16px,1.5vw,19px); line-height:1.9; margin:0 0 28px; }
+#memory .memory-story .memory-lead,
+#memory .memory-story .memory-legacy { color:#edf0f2; }
+#memory .memory-story .memory-quote { color:#f0f2f0; font:italic clamp(22px,2.8vw,30px)/1.65 Georgia,serif; border-left:2px solid #bec6cc; padding-left:24px; margin:44px 0; }
+#memory .memory-quote strong { font-weight:600; }
+#memory .memory-story .memory-dedication { color:#dce1e5; border-top:1px solid #ffffff30; padding-top:28px; margin-top:36px; }
+#memory::after { background:linear-gradient(0deg,#070809,#07080985 15%,#07080985 85%,#070809),linear-gradient(90deg,#030609bc,#030609aa); }
+
+/* Read down the left column, then continue at the top of the right. */
+#memory .memory-story { max-width:760px; }
+@media (min-width:1000px) {
+  #memory .memory-story { max-width:none; column-count:2; column-gap:56px; }
+  #memory .memory-story p { break-inside:avoid; }
+  #memory .memory-story .memory-legacy,
+  #memory .memory-story .memory-dedication { column-span:all; }
+  #memory .memory-story .memory-legacy { margin-top:24px; }
+}
