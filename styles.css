@@ -287,3 +287,22 @@ p { font-size:15px; color:#9b9fa2; line-height:1.95; }
 @media (max-width:520px) {
   #repurchase .repurchase-actions .btn-silver { padding:14px 12px; letter-spacing:0; }
 }
+
+/* Native disclosure keeps wallet downloads accessible by keyboard and touch. */
+.wallet-menu { position:relative; }
+.wallet-menu summary { list-style:none; cursor:pointer; color:#bdbdbd; font-size:13px; font-weight:600; padding:10px 0; white-space:nowrap; }
+.wallet-menu summary::-webkit-details-marker { display:none; }
+.wallet-menu summary::after { content:' ▾'; }
+.wallet-menu[open] summary,.wallet-menu summary:hover { color:white; }
+.wallet-menu summary:focus-visible { outline:2px solid white; outline-offset:6px; }
+.wallet-downloads { position:absolute; top:100%; right:0; min-width:200px; padding:8px 16px; background:#101214; border:1px solid #ffffff35; box-shadow:0 12px 30px #0008; z-index:60; }
+.wallet-downloads a { display:flex; justify-content:space-between; gap:20px; }
+@media (min-width:901px) and (max-width:1250px) {
+  .header-inner { flex-wrap:wrap; }
+  #primary-nav { order:3; flex-basis:100%; justify-content:center; margin:0; }
+  .social-links { margin-left:auto; }
+  html { scroll-padding-top:160px; }
+}
+@media (max-width:900px) {
+  .wallet-downloads { right:auto; left:0; }
+}

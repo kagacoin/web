@@ -39,3 +39,14 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 window.addEventListener('resize', updateCurrent);
 updateCurrent();
+
+const walletMenu = document.querySelector('.wallet-menu');
+document.addEventListener('click', event => {
+  if (!walletMenu.contains(event.target) || event.target.closest('.wallet-downloads a')) walletMenu.open = false;
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && walletMenu.open) {
+    walletMenu.open = false;
+    walletMenu.querySelector('summary').focus();
+  }
+});
